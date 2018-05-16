@@ -8,39 +8,46 @@ import { SliderSwatches } from 'react-color/lib/components/slider/SliderSwatches
 
 const ColorPicker = ({ hex, hsl, onChange }) => {
   const styles = {
-    hue: {
-      height: 10,
+    bar: {
+      height: '1.5rem',
       position: 'relative',
-      marginBottom: 10,
     },
     input: {
-      height: 34,
+      height: '2rem',
       border: `1px solid ${ hex }`,
-      paddingLeft: 10,
+      padding: '0 1rem',
     },
     swatch: {
-      width: 54,
-      height: 38,
+      width: '100%',
+      height: '5rem',
       background: hex,
+      marginBottom: '1rem',
     },
+    inputContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+    }
   }
   return (
     <div>
-      <div style={ styles.hue }>
+      <div>
+        <div style={ styles.swatch } />
+      </div>
+
+      <div style={ styles.bar }>
         <Hue hsl={ hsl } onChange={ onChange } />
       </div>
 
-      <div style={styles.hue}>
+      <div style={styles.bar}>
         <SliderSwatches hsl={hsl} onClick={onChange} />
       </div>
 
-      <div style={{ display: 'flex' }}>
+      <div style={ styles.inputContainer }>
         <EditableInput
           style={{ input: styles.input }}
           value={ hex }
           onChange={ onChange }
         />
-        <div style={ styles.swatch } />
       </div>
     </div>
   );
