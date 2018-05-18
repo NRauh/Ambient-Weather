@@ -5,15 +5,35 @@
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint -p tsconfig.json -c tslint.json ./src/**/*.ts ./src/**/*.tsx"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   },
   "dependencies": {
     "material-ui": "^0.20.1",
     "react": "^16.3.2",
     "react-color": "^2.14.1",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "typescript": "^2.8.3"
   },
   "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
+    "awesome-typescript-loader": "^5.0.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
@@ -24,6 +44,9 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^22.4.3",
     "style-loader": "^0.21.0",
+    "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "tslint-config-airbnb": "^5.8.0",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4"

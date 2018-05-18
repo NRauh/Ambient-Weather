@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { CustomPicker } from 'react-color';
 import {
   EditableInput,
@@ -6,11 +6,12 @@ import {
 } from 'react-color/lib/components/common';
 import { SliderSwatches } from 'react-color/lib/components/slider/SliderSwatches';
 
+/* tslint:disable-next-line variable-name */
 const ColorPicker = ({ hex, hsl, onChange }) => {
   const styles = {
     bar: {
       height: '1.5rem',
-      position: 'relative',
+      position: 'relative' as 'relative',
     },
     input: {
       height: '2rem',
@@ -26,8 +27,9 @@ const ColorPicker = ({ hex, hsl, onChange }) => {
     inputContainer: {
       display: 'flex',
       justifyContent: 'center',
-    }
-  }
+    },
+  };
+
   return (
     <div>
       <div>
@@ -51,6 +53,6 @@ const ColorPicker = ({ hex, hsl, onChange }) => {
       </div>
     </div>
   );
-}
+};
 
 export default CustomPicker(ColorPicker);

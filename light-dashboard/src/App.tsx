@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import Sunny from 'material-ui/svg-icons/image/wb-sunny';
-import ColorLens from 'material-ui/svg-icons/image/color-lens';
-import Settings from 'material-ui/svg-icons/action/settings';
+import wbSunny from 'material-ui/svg-icons/image/wb-sunny';
+import colorLens from 'material-ui/svg-icons/image/color-lens';
+import settings from 'material-ui/svg-icons/action/settings';
 import Weather from './Weather';
 import Colors from './Colors';
 import Preferences from './Preferences';
 
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
     return (
       <MuiThemeProvider>

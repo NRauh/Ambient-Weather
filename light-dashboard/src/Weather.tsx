@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 
-export default class Weather extends Component {
+export default class Weather extends React.Component {
   render() {
     const styles = {
       container: {
@@ -10,7 +10,7 @@ export default class Weather extends Component {
         gridTemplateAreas: `
           "icon info"
           "forecast forecast"
-        `
+        `,
       },
       weatherIcon: {
         gridArea: 'icon',
