@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Sunny from 'material-ui/svg-icons/image/wb-sunny';
@@ -8,7 +8,7 @@ import Weather from './Weather';
 import Colors from './Colors';
 import Preferences from './Preferences';
 
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
