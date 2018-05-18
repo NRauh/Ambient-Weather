@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { CustomPicker } from 'react-color';
 import {
   EditableInput,
@@ -10,7 +10,7 @@ const ColorPicker = ({ hex, hsl, onChange }) => {
   const styles = {
     bar: {
       height: '1.5rem',
-      position: 'relative',
+      position: 'relative' as 'relative',
     },
     input: {
       height: '2rem',
