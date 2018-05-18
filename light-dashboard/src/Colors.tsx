@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
@@ -6,26 +6,26 @@ import Dialog from 'material-ui/Dialog';
 import ColorPicker from './ColorPicker';
 import Avatar from 'material-ui/Avatar';
 
-export default class Colors extends Component {
+export default class Colors extends React.Component {
+  state = {
+    dialogOpen: false,
+    colorToUpdate: '',
+    colors: {
+      clear: 'yellow',
+      fewClouds: 'orange',
+      scatteredClouds: 'green',
+      brokenClouds: 'lime',
+      showerRain: 'grey',
+      rain: 'darkgrey',
+      thunderstorm: 'purple',
+      snow: 'antiquewhite',
+      mist: 'indigo',
+      severWeather: 'red',
+    },
+  };
+
   constructor(props) {
     super(props);
-
-    this.state = {
-      dialogOpen: false,
-      colorToUpdate: '',
-      colors: {
-        clear: 'yellow',
-        fewClouds: 'orange',
-        scatteredClouds: 'green',
-        brokenClouds: 'lime',
-        showerRain: 'grey',
-        rain: 'darkgrey',
-        thunderstorm: 'purple',
-        snow: 'antiquewhite',
-        mist: 'indigo',
-        severWeather: 'red',
-      },
-    };
   }
 
   toggleDialog = (weatherType) => {
