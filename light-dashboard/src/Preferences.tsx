@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import TextField from 'material-ui/TextField';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
-export default class Preferences extends Component {
+export default class Preferences extends React.Component {
   render() {
     return (
       <div>

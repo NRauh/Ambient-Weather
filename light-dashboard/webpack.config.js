@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const { CheckerPlugin } = require('awesome-typescript-loader');
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: './public/index.html',
@@ -7,10 +8,15 @@ const htmlPlugin = new HtmlWebPackPlugin({
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
+  devtool: 'source-map',
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -38,5 +44,8 @@ module.exports = {
       },
     ],
   },
-  plugins: [htmlPlugin],
+  plugins: [
+    htmlPlugin,
+    new CheckerPlugin(),
+  ],
 };
