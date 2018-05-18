@@ -6,6 +6,7 @@ import {
 } from 'react-color/lib/components/common';
 import { SliderSwatches } from 'react-color/lib/components/slider/SliderSwatches';
 
+/* tslint:disable-next-line variable-name */
 const ColorPicker = ({ hex, hsl, onChange }) => {
   const styles = {
     bar: {
@@ -26,8 +27,9 @@ const ColorPicker = ({ hex, hsl, onChange }) => {
     inputContainer: {
       display: 'flex',
       justifyContent: 'center',
-    }
-  }
+    },
+  };
+
   return (
     <div>
       <div>
@@ -51,6 +53,6 @@ const ColorPicker = ({ hex, hsl, onChange }) => {
       </div>
     </div>
   );
-}
+};
 
 export default CustomPicker(ColorPicker);

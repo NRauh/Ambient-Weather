@@ -33,10 +33,10 @@ export default class Colors extends React.Component {
       colorToUpdate: weatherType,
       dialogOpen: !this.state.dialogOpen,
     });
-  };
+  }
 
   updateColor = (color) => {
-    const newColors = {...this.state.colors};
+    const newColors = { ...this.state.colors };
     newColors[this.state.colorToUpdate] = color.hex;
     this.setState({ colors: newColors });
   }

@@ -10,7 +10,7 @@ export default class Weather extends React.Component {
         gridTemplateAreas: `
           "icon info"
           "forecast forecast"
-        `
+        `,
       },
       weatherIcon: {
         gridArea: 'icon',
