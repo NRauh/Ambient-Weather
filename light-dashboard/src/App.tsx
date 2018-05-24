@@ -4,7 +4,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import wbSunny from 'material-ui/svg-icons/image/wb-sunny';
 import colorLens from 'material-ui/svg-icons/image/color-lens';
 import settings from 'material-ui/svg-icons/action/settings';
-import Weather from './Weather';
+import Weather from './pages/Weather';
 import ColorsPage from './pages/Colors';
 import Preferences from './Preferences';
 
