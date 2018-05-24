@@ -5,7 +5,7 @@ import wbSunny from 'material-ui/svg-icons/image/wb-sunny';
 import colorLens from 'material-ui/svg-icons/image/color-lens';
 import settings from 'material-ui/svg-icons/action/settings';
 import Weather from './Weather';
-import Colors from './Colors';
+import ColorsPage from './pages/Colors';
 import Preferences from './Preferences';
 
 export default class App extends React.Component {
@@ -14,21 +14,21 @@ export default class App extends React.Component {
       <MuiThemeProvider>
         <Tabs>
           <Tab
-            icon={<Sunny />}
+            // icon={<Sunny />}
             label="Weather"
           >
             <Weather />
           </Tab>
 
           <Tab
-            icon={<ColorLens />}
+            // icon={<ColorLens />}
             label="Colors"
           >
-            <Colors />
+            <ColorsPage />
           </Tab>
 
           <Tab
-            icon={<Settings />}
+            // icon={<Settings />}
             label="Preferences"
           >
             <Preferences />

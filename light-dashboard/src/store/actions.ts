@@ -3,9 +3,9 @@ import { Colors } from './types';
 import axios, { AxiosResponse } from 'axios';
 import { store } from './store';
 
-export enum ActionTypes {
-  UPDATE_COLORS,
-  UPDATE_SINGLE_COLOR,
+export const ActionTypes = {
+  UPDATE_COLORS: 'UPDATE_COLORS', 
+  UPDATE_SINGLE_COLOR: 'UPDATE_SINGLE_COLOR',
 }
 
 export function updateColors(newColors: Colors) {

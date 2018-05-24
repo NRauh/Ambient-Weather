@@ -8,14 +8,16 @@ const defaultState: State = {
   settings: {},
 };
 
+console.log('types', ActionTypes);
+
 export function dashboardReducer(initialState: State = defaultState, action: AnyAction): State {
   switch (action.type) {
-    case ActionTypes.UPDATE_COLORS:
+    case 'UPDATE_COLORS':
       const newState: State = { ...initialState };
       newState.colors = { ...newState.colors, ...action.value };
       return newState;
 
-    case ActionTypes.UPDATE_SINGLE_COLOR:
+    case 'UPDATE_SINGLE_COLOR':
       const updatedColor: State = { ...initialState };
       updatedColor.colors[action.color] = action.value;
       return updatedColor;

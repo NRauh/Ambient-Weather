@@ -7,7 +7,7 @@ import {
 import { SliderSwatches } from 'react-color/lib/components/slider/SliderSwatches';
 
 /* tslint:disable-next-line variable-name */
-const ColorPicker = ({ hex, hsl, onChange }) => {
+const HueSatPicker = ({ hex, hsl, onChange }) => {
   const styles = {
     bar: {
       height: '1.5rem',
@@ -55,4 +55,4 @@ const ColorPicker = ({ hex, hsl, onChange }) => {
   );
 };
 
-export default CustomPicker(ColorPicker);
+export const ColorPicker = CustomPicker(HueSatPicker);
