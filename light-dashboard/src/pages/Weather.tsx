@@ -1,43 +1,25 @@
 import * as React from 'react';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
+import './Weather.css';
 
 export default class Weather extends React.Component {
   render() {
-    const styles = {
-      container: {
-        display: 'grid',
-        gridTemplateAreas: `
-          "icon info"
-          "forecast forecast"
-        `,
-      },
-      weatherIcon: {
-        gridArea: 'icon',
-      },
-      weatherInfo: {
-        gridArea: 'info',
-      },
-      weatherForecast: {
-        gridArea: 'forecast',
-      },
-    };
-
     return (
-      <div style={styles.container}>
-        <div style={styles.weatherIcon}>
+      <div className="weather">
+        <div className="weather__icon">
           <img
             src="https://placekitten.com/250/250"
             alt="Weather Icon"
           />
         </div>
 
-        <div className="right" style={styles.weatherInfo}>
+        <div className="weather__info">
           <h1>68 - Sunny</h1>
           <h2>Location</h2>
         </div>
 
-        <div className="full" style={styles.weatherForecast}>
+        <div className="weather__forecast">
           <hr className="currentColor" />
 
           <List>
