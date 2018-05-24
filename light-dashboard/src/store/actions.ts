@@ -1,11 +1,12 @@
 import { AnyAction } from 'redux';
-import { Colors } from './types';
+import { Colors, WeatherReport } from './types';
 import axios, { AxiosResponse } from 'axios';
 import { store } from './store';
 
 export const ActionTypes = {
   UPDATE_COLORS: 'UPDATE_COLORS', 
   UPDATE_SINGLE_COLOR: 'UPDATE_SINGLE_COLOR',
+  UPDATE_WEATHER: 'UPDATE_WEATHER',
 };
 
 export function updateColors(newColors: Colors) {
@@ -41,4 +42,21 @@ export async function updateSingleColor(color: keyof Colors, value: string): Pro
     // todo: reset previously added color
     throw 'Unable to save colors';
   }
+}
+
+export async function getWeather() {
+  try {
+    const request: AxiosResponse<WeatherReport> = await axios.get('http://localhost:3000/weather');
+    this.updateWeather(request.data);
+  } catch (err) {
+    console.log('error getting weather:', err);
+  }
+}
+
+export function updateWeather(weather: WeatherReport) {
+  const action: AnyAction = {
+    weather,
+    type: ActionTypes.UPDATE_WEATHER,
+  };
+  store.dispatch(action);
 }

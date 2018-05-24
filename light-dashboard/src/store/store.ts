@@ -20,6 +20,11 @@ export function dashboardReducer(initialState: State = defaultState, action: Any
       updatedColor.colors[action.color] = action.value;
       return updatedColor;
 
+    case 'UPDATE_WEATHER':
+      const updatedWeather: State = { ...initialState };
+      updatedWeather.weather = { ...updatedWeather.weather, ...action.weather };
+      return updatedWeather;
+
     default:
       return initialState;
   }

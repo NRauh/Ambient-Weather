@@ -1,7 +1,7 @@
 import { Colors } from './colors';
 
 export interface WeatherStatus {
-  color?: [keyof Colors];
+  color?: keyof Colors;
   temperature?: number;
   time?: number;
 }

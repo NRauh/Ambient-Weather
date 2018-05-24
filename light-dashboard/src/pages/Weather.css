@@ -16,3 +16,8 @@
 .weather__forecast {
   grid-area: forecast;
 }
+
+.weather__forecast__nowbar {
+  height: 0.25rem;
+  border: none;
+}
