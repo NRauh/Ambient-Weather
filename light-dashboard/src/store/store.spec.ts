@@ -1,4 +1,4 @@
-import { State, Colors, WeatherReport } from './types';
+import { State, Colors, WeatherReport, Settings } from './types';
 import { AnyAction } from 'redux';
 import { dashboardReducer } from './store';
 import { ActionTypes } from '.';
@@ -80,6 +80,34 @@ describe('dashboardReducer', () => {
       weather: testWeather,
       settings: {},
       colors: {},
+    };
+
+    expect(dashboardReducer(givenState, givenAction)).toEqual(expectedState);
+  });
+
+  it('should be able to update the settings', () => {
+    const givenState: State = {
+      settings: {
+        unit: 'us',
+        location: '0,0',
+        hostname: 'weather',
+      },
+      weather: {},
+      colors: {},
+    };
+    const testSettings: Settings = {
+      unit: 'si',
+      location: '0,0',
+      hostname: 'cool-weather',
+    };
+    const givenAction: AnyAction = {
+      type: ActionTypes.UPDATE_SETTINGS,
+      settings: testSettings,
+    };
+    const expectedState: State = {
+      settings: testSettings,
+      colors: {},
+      weather: {},
     };
 
     expect(dashboardReducer(givenState, givenAction)).toEqual(expectedState);

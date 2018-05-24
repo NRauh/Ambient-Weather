@@ -6,7 +6,7 @@ import colorLens from 'material-ui/svg-icons/image/color-lens';
 import settings from 'material-ui/svg-icons/action/settings';
 import Weather from './pages/Weather';
 import ColorsPage from './pages/Colors';
-import Preferences from './Preferences';
+import Preferences from './pages/Preferences';
 
 export default class App extends React.Component {
   render() {

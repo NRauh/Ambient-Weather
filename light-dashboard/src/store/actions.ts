@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { Colors, WeatherReport } from './types';
+import { Colors, WeatherReport, Settings } from './types';
 import axios, { AxiosResponse } from 'axios';
 import { store } from './store';
 
@@ -7,6 +7,7 @@ export const ActionTypes = {
   UPDATE_COLORS: 'UPDATE_COLORS', 
   UPDATE_SINGLE_COLOR: 'UPDATE_SINGLE_COLOR',
   UPDATE_WEATHER: 'UPDATE_WEATHER',
+  UPDATE_SETTINGS: 'UPDATE_SETTINGS',
 };
 
 export function updateColors(newColors: Colors) {
@@ -59,4 +60,31 @@ export function updateWeather(weather: WeatherReport) {
     type: ActionTypes.UPDATE_WEATHER,
   };
   store.dispatch(action);
+}
+
+export async function getSettings() {
+  try {
+    const request: AxiosResponse<Settings> = await axios.get('http://localhost:3000/settings');
+    this.updateSettings(request.data);
+  } catch (err) {
+    console.log('error getting settings', err);
+  }
+}
+
+export function updateSettings(settings: Settings) {
+  const action: AnyAction = {
+    settings,
+    type: ActionTypes.UPDATE_SETTINGS,
+  };
+  store.dispatch(action);
+}
+
+export async function saveSettings(newSettings: Settings) {
+  try {
+    const request: AxiosResponse<Settings> = await axios.patch('http://localhost:3000/settings',
+                                                               newSettings);
+    this.updateSettings(request.data);
+  } catch (err) {
+    console.log('error saving settings');
+  }
 }

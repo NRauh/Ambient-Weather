@@ -1,11 +1,17 @@
 import { createStore, AnyAction } from 'redux';
 import { State } from './types';
-import { ActionTypes } from './actions';
+import { ActionTypes, updateWeather, updateSettings } from './actions';
 
 const defaultState: State = {
-  weather: {},
+  weather: {
+    hourly: [],
+  },
   colors: {},
-  settings: {},
+  settings: {
+    hostname: '',
+    location: '',
+    unit: null,
+  },
 };
 
 export function dashboardReducer(initialState: State = defaultState, action: AnyAction): State {
@@ -24,6 +30,11 @@ export function dashboardReducer(initialState: State = defaultState, action: Any
       const updatedWeather: State = { ...initialState };
       updatedWeather.weather = { ...updatedWeather.weather, ...action.weather };
       return updatedWeather;
+
+    case 'UPDATE_SETTINGS':
+      const updatedSettings: State = { ...initialState };
+      updatedSettings.settings = { ...updatedSettings.settings, ...action.settings };
+      return updatedSettings;
 
     default:
       return initialState;
