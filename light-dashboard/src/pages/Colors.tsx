@@ -69,7 +69,7 @@ export default class ColorsPage extends React.Component {
         colorToUpdate: null,
         dialogOpen: false,
       });
-    }
+    };
   }
 
   updatePendingColor = (color) => {

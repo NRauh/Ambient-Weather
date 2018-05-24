@@ -28,7 +28,7 @@ describe('<ColorsPage />', () => {
 
   describe('closeDialog', () => {
     it('should close the dialog and reset the colors', () => {
-      colorsPage.find('ListItem[primaryText="Clear"]').first().simulate('click')
+      colorsPage.find('ListItem[primaryText="Clear"]').first().simulate('click');
       expect(colorsPage.state('pendingColor')).not.toBe(null);
       expect(colorsPage.state('colorToUpdate')).not.toBe(null);
       expect(colorsPage.state('dialogOpen')).toBe(true);
@@ -71,37 +71,37 @@ describe('<ColorsPage />', () => {
       expect(colorsPage.state('colorToUpdate')).toBe(null);
       expect(colorsPage.state('pendingColor')).toBe(null);
 
-      colorsPage.find('ListItem[primaryText="Clear"]').first().simulate('click')
+      colorsPage.find('ListItem[primaryText="Clear"]').first().simulate('click');
       expect(colorsPage.state('colorToUpdate')).toBe('clear');
       expect(colorsPage.state('pendingColor')).toBe('#ccc');
 
-      colorsPage.find('ListItem[primaryText="Wind"]').first().simulate('click')
+      colorsPage.find('ListItem[primaryText="Wind"]').first().simulate('click');
       expect(colorsPage.state('colorToUpdate')).toBe('wind');
       expect(colorsPage.state('pendingColor')).toBe('#bbb');
 
-      colorsPage.find('ListItem[primaryText="Partly Cloudy"]').first().simulate('click')
+      colorsPage.find('ListItem[primaryText="Partly Cloudy"]').first().simulate('click');
       expect(colorsPage.state('colorToUpdate')).toBe('partlyCloudy');
       expect(colorsPage.state('pendingColor')).toBe('#aaa');
 
-      colorsPage.find('ListItem[primaryText="Cloudy"]').first().simulate('click')
+      colorsPage.find('ListItem[primaryText="Cloudy"]').first().simulate('click');
       expect(colorsPage.state('colorToUpdate')).toBe('cloudy');
       expect(colorsPage.state('pendingColor')).toBe('#000');
 
-      colorsPage.find('ListItem[primaryText="Rain"]').first().simulate('click')
+      colorsPage.find('ListItem[primaryText="Rain"]').first().simulate('click');
       expect(colorsPage.state('colorToUpdate')).toBe('rain');
       expect(colorsPage.state('pendingColor')).toBe('#999');
 
-      colorsPage.find('ListItem[primaryText="Snow"]').first().simulate('click')
+      colorsPage.find('ListItem[primaryText="Snow"]').first().simulate('click');
       expect(colorsPage.state('colorToUpdate')).toBe('snow');
       expect(colorsPage.state('pendingColor')).toBe('#888');
 
-      colorsPage.find('ListItem[primaryText="Fog"]').first().simulate('click')
+      colorsPage.find('ListItem[primaryText="Fog"]').first().simulate('click');
       expect(colorsPage.state('colorToUpdate')).toBe('fog');
       expect(colorsPage.state('pendingColor')).toBe('#777');
     });
 
     it('should open the dialog when clicking an item', () => {
-      colorsPage.find('ListItem[primaryText="Clear"]').first().simulate('click')
+      colorsPage.find('ListItem[primaryText="Clear"]').first().simulate('click');
       expect(colorsPage.state('dialogOpen')).toBe(true);
     });
   });

@@ -6,7 +6,7 @@ import { store } from './store';
 export const ActionTypes = {
   UPDATE_COLORS: 'UPDATE_COLORS', 
   UPDATE_SINGLE_COLOR: 'UPDATE_SINGLE_COLOR',
-}
+};
 
 export function updateColors(newColors: Colors) {
   const action: AnyAction = {
@@ -23,7 +23,7 @@ export async function getColors() {
   } catch (err) {
     console.error('error getting colors:', err);
   }
-};
+}
 
 export async function updateSingleColor(color: keyof Colors, value: string): Promise<void> {
   const action: AnyAction = {
@@ -35,7 +35,8 @@ export async function updateSingleColor(color: keyof Colors, value: string): Pro
 
   try {
     const update: Colors = { [color]: value };
-    const request: AxiosResponse<Colors> = await axios.patch('http://localhost:3000/colors', update);
+    const request: AxiosResponse<Colors> = await axios.patch('http://localhost:3000/colors',
+                                                             update);
   } catch (err) {
     // todo: reset previously added color
     throw 'Unable to save colors';
