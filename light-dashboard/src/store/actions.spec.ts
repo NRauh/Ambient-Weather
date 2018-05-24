@@ -51,4 +51,10 @@ describe('updateSingleColor', () => {
     actions.updateSingleColor('clear', '#424242');
     expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
   });
+
+  it('should send a request to save the color', async () => {
+    const expectedColor: Colors = { clear: '#424242' };
+    await actions.updateSingleColor('clear', '#424242');
+    expect(axios.patch).toHaveBeenCalledWith('http://localhost:3000/colors', expectedColor);
+  });
 });

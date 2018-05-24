@@ -60,7 +60,8 @@ export default class ColorsPage extends React.Component {
   closeDialog = (save) => {
     return () => {
       if (save) {
-        updateSingleColor(this.state.colorToUpdate, this.state.pendingColor)
+        // todo: show thing after error
+        updateSingleColor(this.state.colorToUpdate, this.state.pendingColor);
       }
 
       this.setState({

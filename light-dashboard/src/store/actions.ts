@@ -25,11 +25,19 @@ export async function getColors() {
   }
 };
 
-export function updateSingleColor(color: keyof Colors, value: string): void {
+export async function updateSingleColor(color: keyof Colors, value: string): Promise<void> {
   const action: AnyAction = {
     color,
     value,
     type: ActionTypes.UPDATE_SINGLE_COLOR,
   };
   store.dispatch(action);
+
+  try {
+    const update: Colors = { [color]: value };
+    const request: AxiosResponse<Colors> = await axios.patch('http://localhost:3000/colors', update);
+  } catch (err) {
+    // todo: reset previously added color
+    throw 'Unable to save colors';
+  }
 }
