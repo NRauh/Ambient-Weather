@@ -7,6 +7,7 @@ interface AppState {
   page: number;
   weather: WeatherProps;
   settings: SettingsPageState;
+  previousSettings?: SettingsPageState;
 }
 
 class App extends React.Component {
@@ -50,10 +51,17 @@ class App extends React.Component {
       unit: 'SI',
       hostname: 'hello-led',
     },
+    previousSettings: undefined,
   };
 
   constructor(props: any) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.setState({
+      previousSettings: this.state.settings,
+    });
   }
 
   changePage = (event: any, value: number) => {
@@ -69,11 +77,16 @@ class App extends React.Component {
   }
 
   resetSettings = () => {
-    console.log('i will reset');
+    this.setState({
+      settings: this.state.previousSettings,
+    });
   }
 
   saveSettings = () => {
-    console.log('i will save');
+    console.log('i will save', this.state.settings.valueOf());
+    this.setState({
+      previousSettings: this.state.settings,
+    });
   }
 
   getCurrentLocation = () => {
