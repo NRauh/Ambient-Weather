@@ -2,12 +2,19 @@ import * as React from 'react';
 import { Navbar } from './Navbar';
 import { WeatherPage, WeatherProps } from './WeatherPage';
 import { SettingsPage, SettingsPageState } from './SettingsPage';
+import {
+  ColorsPage,
+  ConditionColorListState,
+  SetColorDialogState,
+} from './ColorsPage';
 
 interface AppState {
   page: number;
   weather: WeatherProps;
   settings: SettingsPageState;
   previousSettings?: SettingsPageState;
+  conditionColors: ConditionColorListState,
+  colorDialog: SetColorDialogState,
 }
 
 class App extends React.Component {
@@ -52,6 +59,18 @@ class App extends React.Component {
       hostname: 'hello-led',
     },
     previousSettings: undefined,
+    conditionColors: {
+      clear: '#ddd',
+      windy: '#ccc',
+      partlyCloudy: '#bbb',
+      cloudy: '#aaa',
+      rain: '#999',
+      snow: '#888',
+      fog: '#777',
+    },
+    colorDialog: {
+      dialogOpen: false,
+    },
   };
 
   constructor(props: any) {
@@ -93,6 +112,32 @@ class App extends React.Component {
     console.log('i will get the location');
   }
 
+  openColorDialog = (condition: keyof ConditionColorListState) => {
+    return (event: any) => {
+      this.setState({
+        colorDialog: {
+          dialogOpen: true,
+          forCondition: condition
+        },
+      });
+    };
+  }
+
+  closeColorDialog = (save: boolean) => {
+    return (event: any) => {
+      if (save) {
+        console.log('i will save');
+      }
+
+      this.setState({
+        colorDialog: {
+          dialogOpen: false,
+          forCondition: null,
+        },
+      });
+    };
+  }
+
   currentPage = () => {
     if (this.state.page === 0) {
       return (
@@ -101,6 +146,22 @@ class App extends React.Component {
           condition={this.state.weather.condition}
           time={this.state.weather.time}
           forecast={this.state.weather.forecast}
+        />
+      );
+    } else if (this.state.page === 1) {
+      return (
+        <ColorsPage
+          clear={this.state.conditionColors.clear}
+          windy={this.state.conditionColors.windy}
+          partlyCloudy={this.state.conditionColors.partlyCloudy}
+          cloudy={this.state.conditionColors.cloudy}
+          rain={this.state.conditionColors.rain}
+          snow={this.state.conditionColors.snow}
+          fog={this.state.conditionColors.fog}
+          dialogOpen={this.state.colorDialog.dialogOpen}
+          forCondition={this.state.colorDialog.forCondition}
+          onColorClick={this.openColorDialog}
+          onDialogClose={this.closeColorDialog}
         />
       );
     } else if (this.state.page === 2) {
