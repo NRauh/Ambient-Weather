@@ -4,12 +4,12 @@ import {
   ListItem,
   ListItemText,
   Avatar,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
 } from '@material-ui/core';
+import {
+  SetColorDialog,
+  SetColorDialogState,
+  SetColorDialogProps,
+} from './ColorDialog';
 
 export interface ConditionColorListState {
   clear: string;
@@ -23,15 +23,6 @@ export interface ConditionColorListState {
 
 export interface ConditionColorListProps extends ConditionColorListState {
   onColorClick: (condition: keyof ConditionColorListState) => (event: any) => void;
-}
-
-export interface SetColorDialogState {
-  dialogOpen: boolean;
-  forCondition?: keyof ConditionColorListState;
-}
-
-export interface SetColorDialogProps extends SetColorDialogState {
-  onDialogClose: (save: boolean) => (event: any) => void;
 }
 
 export interface ColorsPageState extends ConditionColorListState, SetColorDialogState {
@@ -77,27 +68,6 @@ export const ConditionColorList = (props: ConditionColorListProps) => (
       <ListItemText primary="Fog" />
     </ListItem>
   </List>
-);
-
-export const SetColorDialog = (props: SetColorDialogProps) => (
-  <Dialog
-    open={props.dialogOpen}
-    onClose={props.onDialogClose(false)}
-  >
-    <DialogTitle>Set Color</DialogTitle>
-    <DialogContent>
-      <h2>Updaing color {props.forCondition}</h2>
-    </DialogContent>
-
-    <DialogActions>
-      <Button onClick={props.onDialogClose(false)} color="primary">
-        Cancel
-      </Button>
-      <Button onClick={props.onDialogClose(true)} color="primary">
-        Save
-      </Button>
-    </DialogActions>
-  </Dialog>
 );
 
 export const ColorsPage = (props: ColorsPageProps) => (

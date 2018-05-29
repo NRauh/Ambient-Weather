@@ -2,11 +2,8 @@ import * as React from 'react';
 import { Navbar } from './Navbar';
 import { WeatherPage, WeatherProps } from './WeatherPage';
 import { SettingsPage, SettingsPageState } from './SettingsPage';
-import {
-  ColorsPage,
-  ConditionColorListState,
-  SetColorDialogState,
-} from './ColorsPage';
+import { ColorsPage, ConditionColorListState } from './ColorsPage';
+import { SetColorDialogState } from './ColorDialog';
 
 interface AppState {
   page: number;
