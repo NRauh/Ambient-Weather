@@ -54,6 +54,10 @@
     scroll "^2.0.3"
     warning "^3.0.0"
 
+"@material-ui/lab@^1.0.0-alpha.3":
+  version "1.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-1.0.0-alpha.3.tgz#ad8ea3a148baab1a94c6be7059a0fc526f94b03f"
+
 "@types/jest@^22.2.3":
   version "22.2.3"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"

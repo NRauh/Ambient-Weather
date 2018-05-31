@@ -3,7 +3,7 @@ import { Navbar } from './Navbar';
 import { WeatherPage, WeatherProps } from './WeatherPage';
 import { SettingsPage, SettingsPageState } from './SettingsPage';
 import { ColorsPage, ConditionColorListState } from './ColorsPage';
-import { SetColorDialogState } from './ColorDialog';
+import { SetColorDialogState, ColorPickerState } from './ColorDialog';
 
 interface AppState {
   page: number;
@@ -67,6 +67,9 @@ class App extends React.Component {
     },
     colorDialog: {
       dialogOpen: false,
+      red: 7,
+      green: 7,
+      blue: 7,
     },
   };
 
@@ -82,6 +85,14 @@ class App extends React.Component {
 
   changePage = (event: any, value: number) => {
     this.setState({ page: value });
+  }
+
+  changeColor = (color: keyof ColorPickerState) => {
+    return (event: any) => {
+      const newColor: SetColorDialogState = { ...this.state.colorDialog };
+      newColor[color] = event.target.value;
+      this.setState({ colorDialog: newColor });
+    };
   }
 
   updateSettings = (setting: keyof SettingsPageState) => {
@@ -111,12 +122,13 @@ class App extends React.Component {
 
   openColorDialog = (condition: keyof ConditionColorListState) => {
     return (event: any) => {
-      this.setState({
-        colorDialog: {
-          dialogOpen: true,
-          forCondition: condition
-        },
-      });
+      const openDialog: SetColorDialogState = {
+        ...this.state.colorDialog,
+        dialogOpen: true,
+        forCondition: condition,
+      };
+
+      this.setState({ colorDialog: openDialog });
     };
   }
 
@@ -126,12 +138,12 @@ class App extends React.Component {
         console.log('i will save');
       }
 
-      this.setState({
-        colorDialog: {
-          dialogOpen: false,
-          forCondition: null,
-        },
-      });
+      const closeDialog: SetColorDialogState = {
+        ...this.state.colorDialog,
+        dialogOpen: false,
+        forCondition: undefined,
+      };
+      this.setState({ colorDialog: closeDialog });
     };
   }
 
@@ -157,6 +169,10 @@ class App extends React.Component {
           fog={this.state.conditionColors.fog}
           dialogOpen={this.state.colorDialog.dialogOpen}
           forCondition={this.state.colorDialog.forCondition}
+          red={this.state.colorDialog.red}
+          green={this.state.colorDialog.green}
+          blue={this.state.colorDialog.blue}
+          onColorChange={this.changeColor}
           onColorClick={this.openColorDialog}
           onDialogClose={this.closeColorDialog}
         />

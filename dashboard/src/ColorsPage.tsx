@@ -72,7 +72,7 @@ export const ConditionColorList = (props: ConditionColorListProps) => (
 
 export const ColorsPage = (props: ColorsPageProps) => (
   <div>
-    <h1>Colors</h1>
+    <h1>Colors {props.red}, {props.green}, {props.blue}</h1>
     <ConditionColorList
       clear={props.clear}
       windy={props.windy}
@@ -86,7 +86,11 @@ export const ColorsPage = (props: ColorsPageProps) => (
     <SetColorDialog
       dialogOpen={props.dialogOpen}
       forCondition={props.forCondition}
+      red={props.red}
+      green={props.green}
+      blue={props.green}
       onDialogClose={props.onDialogClose}
+      onColorChange={props.onColorChange}
     />
   </div>
 );
