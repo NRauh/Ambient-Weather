@@ -1,5 +1,8 @@
 import { BottomNavigation, BottomNavigationAction, withStyles } from '@material-ui/core';
 import * as React from 'react';
+import { DashboardState } from './store/store';
+import { APP_ACTIONS } from './store/app.reducer';
+import { connect } from 'react-redux';
 
 const styles = {
   root: {
@@ -9,7 +12,12 @@ const styles = {
   },
 };
 
-export const BottomNavbar = (props: any) => (
+export interface BottomNavbarProps {
+  onChange: (event: any, value: number) => void;
+  page: number;
+}
+
+export const BottomNavbar = (props: BottomNavbarProps) => (
   <BottomNavigation
     value={props.page}
     showLabels={true}
@@ -22,4 +30,16 @@ export const BottomNavbar = (props: any) => (
   </BottomNavigation>
 );
 
-export const Navbar = withStyles(styles)(BottomNavbar);
+const mapStateToProps = (state: DashboardState) => {
+  return {
+    page: state.app.page,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onChange: (event, value) => {
+    dispatch({ value, type: APP_ACTIONS.SET_PAGE });
+  },
+});
+
+export const Navbar = connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BottomNavbar));

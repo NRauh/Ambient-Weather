@@ -8,6 +8,7 @@ import { colorsReducer } from './colors.reducer';
 import { previousSettingsReducer, settingsReducer } from './settings.reducer';
 import { weatherReducer } from './weather.reducer';
 import { appReducer } from './app.reducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export interface AppState {
   page: number;
@@ -31,4 +32,4 @@ const rootReducer = combineReducers<DashboardState>({
   app: appReducer,
 });
 
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer, composeWithDevTools());

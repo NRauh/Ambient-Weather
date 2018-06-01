@@ -4,9 +4,10 @@ import { WeatherPage, WeatherProps } from './WeatherPage';
 import { SettingsPage, SettingsPageState } from './SettingsPage';
 import { ColorsPage, ConditionColorListState } from './ColorsPage';
 import { SetColorDialogState, ColorPickerState } from './ColorDialog';
+import { DashboardState } from './store/store';
+import { connect } from 'react-redux';
 
 interface AppState {
-  page: number;
   weather: WeatherProps;
   settings: SettingsPageState;
   previousSettings?: SettingsPageState;
@@ -14,9 +15,12 @@ interface AppState {
   colorDialog: SetColorDialogState,
 }
 
-class App extends React.Component {
+interface AppProps {
+  page: number;
+}
+
+class App extends React.Component<any, any> {
   state: AppState = {
-    page: 0,
     weather: {
       temperature: 68,
       condition: 'Clear',
@@ -73,7 +77,7 @@ class App extends React.Component {
     },
   };
 
-  constructor(props: any) {
+  constructor(props: AppProps) {
     super(props);
   }
 
@@ -81,10 +85,6 @@ class App extends React.Component {
     this.setState({
       previousSettings: this.state.settings,
     });
-  }
-
-  changePage = (event: any, value: number) => {
-    this.setState({ page: value });
   }
 
   changeColor = (color: keyof ColorPickerState) => {
@@ -148,7 +148,7 @@ class App extends React.Component {
   }
 
   currentPage = () => {
-    if (this.state.page === 0) {
+    if (this.props.page === 0) {
       return (
         <WeatherPage
           temperature={this.state.weather.temperature}
@@ -157,7 +157,7 @@ class App extends React.Component {
           forecast={this.state.weather.forecast}
         />
       );
-    } else if (this.state.page === 1) {
+    } else if (this.props.page === 1) {
       return (
         <ColorsPage
           clear={this.state.conditionColors.clear}
@@ -177,7 +177,7 @@ class App extends React.Component {
           onDialogClose={this.closeColorDialog}
         />
       );
-    } else if (this.state.page === 2) {
+    } else if (this.props.page === 2) {
       return (
         <SettingsPage
           lat={this.state.settings.lat}
@@ -203,13 +203,16 @@ class App extends React.Component {
       <div className="App">
         {this.currentPage()}
 
-        <Navbar
-          page={this.state.page}
-          onChange={this.changePage}
-        />
+        <Navbar />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state: DashboardState) => {
+  return {
+    page: state.app.page,
+  };
+};
+
+export default connect(mapStateToProps)(App);
