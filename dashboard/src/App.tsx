@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Navbar } from './Navbar';
 import { WeatherPage, WeatherProps } from './WeatherPage';
-import { SettingsPage, SettingsPageState } from './SettingsPage';
+import SettingsPage from './SettingsPage';
 import { ColorsPage, ConditionColorListState } from './ColorsPage';
 import { SetColorDialogState, ColorPickerState } from './ColorDialog';
 import { DashboardState } from './store/store';
@@ -9,8 +9,6 @@ import { connect } from 'react-redux';
 
 interface AppState {
   weather: WeatherProps;
-  settings: SettingsPageState;
-  previousSettings?: SettingsPageState;
   conditionColors: ConditionColorListState,
   colorDialog: SetColorDialogState,
 }
@@ -53,13 +51,6 @@ class App extends React.Component<any, any> {
         },
       ],
     },
-    settings: {
-      lat: '0.0',
-      long: '0.0',
-      unit: 'SI',
-      hostname: 'hello-led',
-    },
-    previousSettings: undefined,
     conditionColors: {
       clear: '#ddd',
       windy: '#ccc',
@@ -81,43 +72,12 @@ class App extends React.Component<any, any> {
     super(props);
   }
 
-  componentDidMount() {
-    this.setState({
-      previousSettings: this.state.settings,
-    });
-  }
-
   changeColor = (color: keyof ColorPickerState) => {
     return (event: any) => {
       const newColor: SetColorDialogState = { ...this.state.colorDialog };
       newColor[color] = event.target.value;
       this.setState({ colorDialog: newColor });
     };
-  }
-
-  updateSettings = (setting: keyof SettingsPageState) => {
-    return (event: any) => {
-      const newSettings = { ...this.state.settings };
-      newSettings[setting] = event.target.value
-      this.setState({ settings: newSettings });
-    }
-  }
-
-  resetSettings = () => {
-    this.setState({
-      settings: this.state.previousSettings,
-    });
-  }
-
-  saveSettings = () => {
-    console.log('i will save', this.state.settings.valueOf());
-    this.setState({
-      previousSettings: this.state.settings,
-    });
-  }
-
-  getCurrentLocation = () => {
-    console.log('i will get the location');
   }
 
   openColorDialog = (condition: keyof ConditionColorListState) => {
@@ -179,19 +139,7 @@ class App extends React.Component<any, any> {
       );
     } else if (this.props.page === 2) {
       return (
-        <SettingsPage
-          lat={this.state.settings.lat}
-          long={this.state.settings.long}
-          unit={this.state.settings.unit}
-          hostname={this.state.settings.hostname}
-          onLatChange={this.updateSettings('lat')}
-          onLongChange={this.updateSettings('long')}
-          onUnitChange={this.updateSettings('unit')}
-          onHostnameChange={this.updateSettings('hostname')}
-          onResetClick={this.resetSettings}
-          onSaveClick={this.saveSettings}
-          onUseCurrentLocationClick={this.getCurrentLocation}
-        />
+        <SettingsPage />
       );
     } else {
       return;

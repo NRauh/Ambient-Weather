@@ -8,6 +8,9 @@ import {
   FormControlLabel,
   Radio,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { DashboardState } from './store/store';
+import { SETTINGS_ACTIONS } from './store/settings.reducer';
 
 export interface SettingsControlsProps {
   onSaveClick: (event: any) => void;
@@ -44,7 +47,9 @@ export interface HostnameProps extends HostnameState {
 export interface SettingsPageState extends LocationInputState, UnitSelectionState, HostnameState {
 }
 
-export interface SettingsPageProps extends SettingsControlsProps, LocationInputProps, UnitSelectionProps, HostnameProps {
+export interface SettingsPageProps {
+  settings: SettingsPageState;
+  onSave: (event: SettingsPageState) => void;
 }
 
 
@@ -125,27 +130,97 @@ export const HostnameInput = (props: HostnameProps) => (
   </div>
 );
 
-export const SettingsPage = (props: SettingsPageProps) => (
-  <div className="settings">
-    <h1>Settings</h1>
-    <SettingsControls
-      onResetClick={props.onResetClick}
-      onSaveClick={props.onSaveClick}
-    />
-    <LocationInput
-      onLatChange={props.onLatChange}
-      onLongChange={props.onLongChange}
-      onUseCurrentLocationClick={props.onUseCurrentLocationClick}
-      lat={props.lat}
-      long={props.long}
-    />
-    <UnitSelection
-      unit={props.unit}
-      onUnitChange={props.onUnitChange}
-    />
-    <HostnameInput
-      hostname={props.hostname}
-      onHostnameChange={props.onHostnameChange}
-    />
-  </div>
-);
+class SettingsPage extends React.Component {
+  state: {
+    settings: SettingsPageState,
+    previousSettings: SettingsPageState,
+  };
+
+  constructor(props: SettingsPageProps) {
+    super(props);
+
+    this.state = {
+      previousSettings: { ...props.settings },
+      settings: { ...props.settings }
+    };
+  }
+
+  updateSettings = (setting: keyof SettingsPageState) => {
+    return (event: any) => {
+      this.setState({
+        settings: {
+          ...this.state.settings,
+          [setting]: event.target.value
+        }
+      });
+    }
+  };
+
+  resetChanges = () => {
+    this.setState({
+      settings: { ...this.state.previousSettings },
+    });
+  };
+
+  saveSettings = () => {
+    console.log('will save', this.state.settings);
+    (this.props as SettingsPageProps).onSave(this.state.settings);
+  }
+
+  getCurrentLocation = () => {
+    console.log('will get current location');
+  };
+
+  render() {
+    return (
+      <div className="settings">
+        <h1>Settings</h1>
+        <SettingsControls
+          onResetClick={this.resetChanges}
+          onSaveClick={this.saveSettings}
+        />
+        <LocationInput
+          onLatChange={this.updateSettings('lat')}
+          onLongChange={this.updateSettings('long')}
+          onUseCurrentLocationClick={this.getCurrentLocation}
+          lat={this.state.settings.lat}
+          long={this.state.settings.long}
+        />
+        <UnitSelection
+          unit={this.state.settings.unit}
+          onUnitChange={this.updateSettings('unit')}
+        />
+        <HostnameInput
+          hostname={this.state.settings.hostname}
+          onHostnameChange={this.updateSettings('hostname')}
+        />
+      </div>
+    );
+  };
+}
+
+const mapStateToProps = (state: DashboardState) => {
+  return {
+    settings: {
+      lat: state.settings.lat,
+      long: state.settings.long,
+      unit: state.settings.unit,
+      hostname: state.settings.hostname,
+    },
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onSave: (event: SettingsPageState) => {
+      const action = {
+        type: SETTINGS_ACTIONS.SET_ALL_SETTINGS,
+        value: event,
+      };
+
+      dispatch(action);
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage);
