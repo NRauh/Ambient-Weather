@@ -1,17 +1,22 @@
-import { SettingsPageState } from '../SettingsPage';
 import { AnyAction } from 'redux';
+import { Location, UnitOptions } from '@light/types';
 
-const initialSettingsState: SettingsPageState = {
+export interface SettingsState extends Location {
+  unit: UnitOptions;
+  hostname: string;
+}
+
+const initialSettingsState: SettingsState = {
   lat: '0.0',
   long: '0.0',
-  unit: 'SI',
+  unit: UnitOptions.SI,
   hostname: 'hello-led',
 };
 
-const blankSettings: SettingsPageState = {
+const blankSettings: SettingsState = {
   lat: '',
   long: '',
-  unit: 'SI',
+  unit: UnitOptions.SI,
   hostname: '',
 };
 
@@ -21,7 +26,7 @@ export const SETTINGS_ACTIONS = {
   SAVE_PREVIOUS: 'SAVE_PREVIOUS',
 };
 
-export function settingsReducer(state = initialSettingsState, action: AnyAction): SettingsPageState {
+export function settingsReducer(state = initialSettingsState, action: AnyAction): SettingsState {
   switch (action.type) {
     case SETTINGS_ACTIONS.SET_ALL_SETTINGS:
       return { ...state, ...action.value };
@@ -36,7 +41,7 @@ export function settingsReducer(state = initialSettingsState, action: AnyAction)
   }
 }
 
-export function previousSettingsReducer(state = blankSettings, action: AnyAction): SettingsPageState {
+export function previousSettingsReducer(state = blankSettings, action: AnyAction): SettingsState {
   if (action.type === SETTINGS_ACTIONS.SAVE_PREVIOUS) {
     return action.value;
   } else {

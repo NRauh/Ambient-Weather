@@ -1,2 +1,4 @@
-export * from './color';
-export * from './condition-list';
+export { Color } from './color';
+export { ConditionList } from './condition-list';
+export { Location } from './location';
+export { UnitOptions } from './unit-options';
