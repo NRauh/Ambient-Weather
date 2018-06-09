@@ -10,38 +10,16 @@ interface AppProps {
   page: number;
 }
 
-class App extends React.Component<any, any> {
-  constructor(props: AppProps) {
-    super(props);
-  }
+const App = (props: AppProps) => {
+  return (
+    <div className="App">
+      {props.page === 0 && <WeatherPage />}
+      {props.page === 1 && <ColorsPage />}
+      {props.page === 2 && <SettingsPage />}
 
-  currentPage = () => {
-    if (this.props.page === 0) {
-      return (
-        <WeatherPage />
-      );
-    } else if (this.props.page === 1) {
-      return (
-        <ColorsPage />
-      );
-    } else if (this.props.page === 2) {
-      return (
-        <SettingsPage />
-      );
-    } else {
-      return;
-    }
-  }
-
-  public render() {
-    return (
-      <div className="App">
-        {this.currentPage()}
-
-        <Navbar />
-      </div>
-    );
-  }
+      <Navbar />
+    </div>
+  );
 }
 
 const mapStateToProps = (state: DashboardState) => {
