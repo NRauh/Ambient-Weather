@@ -1,9 +1,8 @@
-import { WeatherProps } from '../WeatherPage';
 import { ConditionList } from '@light/types';
 import { combineReducers, createStore } from 'redux';
 import { colorsReducer } from './colors.reducer';
 import { previousSettingsReducer, settingsReducer, SettingsState } from './settings.reducer';
-import { weatherReducer } from './weather.reducer';
+import { weatherReducer, WeatherState } from './weather.reducer';
 import { appReducer } from './app.reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -13,7 +12,7 @@ export interface AppState {
 
 export interface DashboardState {
   app: AppState;
-  weather: WeatherProps;
+  weather: WeatherState;
   settings: SettingsState;
   previousSettings?: SettingsState;
   conditionColors: ConditionList,

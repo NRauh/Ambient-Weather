@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Navbar } from './Navbar';
-import WeatherPage from './WeatherPage';
+import WeatherPage from './weather-page/WeatherPage';
 import SettingsPage from './settings-page/SettingsPage';
 import ColorsPage  from './colors-page/ColorsPage';
 import { DashboardState } from './store/store';

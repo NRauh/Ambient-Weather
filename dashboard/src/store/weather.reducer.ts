@@ -1,10 +1,17 @@
-import { WeatherProps } from '../WeatherPage';
+import { WeatherStatus } from '@light/types';
 import { AnyAction } from 'redux';
 
-const initialWeatherState: WeatherProps = {
-  temperature: 68,
-  condition: 'Clear',
-  time: 1000000,
+export interface WeatherState {
+  current: WeatherStatus;
+  forecast: WeatherStatus[];
+}
+
+const initialWeatherState: WeatherState = {
+  current: {
+    temperature: 68,
+    condition: 'Clear',
+    time: 1000000,
+  },
   forecast: [
     {
       temperature: 58,
@@ -38,7 +45,7 @@ export const WEATHER_ACTIONS = {
   SET_WEATHER: 'SET_WEATHER',
 };
 
-export function weatherReducer(state = initialWeatherState, action: AnyAction): WeatherProps {
+export function weatherReducer(state = initialWeatherState, action: AnyAction): WeatherState {
   if (action.type === WEATHER_ACTIONS.SET_WEATHER) {
     return { ...state, ...action.value };
   } else {
