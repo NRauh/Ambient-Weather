@@ -8,14 +8,11 @@ import {
   TextField,
 } from '@material-ui/core';
 import { ConditionColorListState } from './ColorsPage';
+import { Color } from './types';
 
-export interface ColorPickerState {
-  red: number;
-  green: number;
-  blue: number;
-}
 
-export interface ColorPickerProps extends ColorPickerState {
+export interface ColorPickerProps {
+  color: Color
   onRedChange?: (event: any) => void;
   onGreenChange?: (event: any) => void;
   onBlueChange?: (event: any) => void;
@@ -23,7 +20,7 @@ export interface ColorPickerProps extends ColorPickerState {
 
 export const ColorPicker = (props: ColorPickerProps) => {
   const previewStyles = {
-    backgroundColor: `rgb(${props.red}, ${props.green}, ${props.blue})`,
+    backgroundColor: `rgb(${props.color.red}, ${props.color.green}, ${props.color.blue})`,
     width: '100%',
     height: '10rem',
   };
@@ -37,21 +34,21 @@ export const ColorPicker = (props: ColorPickerProps) => {
         <TextField
           id="red"
           label="Red"
-          value={props.red}
+          value={props.color.red}
           onChange={props.onRedChange}
           type="number"
         />
         <TextField
           id="green"
           label="Green"
-          value={props.green}
+          value={props.color.green}
           onChange={props.onGreenChange}
           type="number"
         />
         <TextField
           id="blue"
           label="Blue"
-          value={props.blue}
+          value={props.color.blue}
           onChange={props.onBlueChange}
           type="number"
         />
@@ -60,40 +57,60 @@ export const ColorPicker = (props: ColorPickerProps) => {
   );
 };
 
-export interface SetColorDialogState extends ColorPickerState {
+export interface SetColorDialogProps {
   dialogOpen: boolean;
-  forCondition?: keyof ConditionColorListState;
+  forCondition: keyof ConditionColorListState;
+  color: Color;
+  onDialogClose: (save: boolean) => void;
+  onColorChange: (value: Color) => void;
 }
 
-export interface SetColorDialogProps extends SetColorDialogState, ColorPickerProps {
-  onColorChange: (color: keyof ColorPickerState) => (event: any) => void;
-  onDialogClose: (save: boolean) => (event: any) => void;
+export class ColorDialog extends React.Component<SetColorDialogProps> {
+  constructor(props: SetColorDialogProps) {
+    super(props);
+  }
+
+  dialogClose = (shouldSave: boolean) => {
+    return () => {
+      this.props.onDialogClose(shouldSave);
+    };
+  }
+
+  changeColor = (field: keyof Color) => {
+    return (e: any) => {
+      const newColor: Color = {
+        ...this.props.color,
+        [field]: parseInt(e.target.value, 10),
+      };
+      this.props.onColorChange(newColor);
+    }
+  }
+
+  render() {
+    return (
+      <Dialog
+        open={(this.props as SetColorDialogProps).dialogOpen}
+        onClose={this.dialogClose(false)}
+      >
+        <DialogTitle>Set {(this.props as SetColorDialogProps).forCondition}</DialogTitle>
+        <DialogContent>
+          <ColorPicker
+            color={this.props.color}
+            onRedChange={this.changeColor('red')}
+            onGreenChange={this.changeColor('green')}
+            onBlueChange={this.changeColor('blue')}
+          />
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={this.dialogClose(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={this.dialogClose(true)} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
 }
-
-export const SetColorDialog = (props: SetColorDialogProps) => (
-  <Dialog
-    open={props.dialogOpen}
-    onClose={props.onDialogClose(false)}
-  >
-    <DialogTitle>Set {props.forCondition}</DialogTitle>
-    <DialogContent>
-      <ColorPicker
-        red={props.red}
-        green={props.green}
-        blue={props.blue}
-        onRedChange={props.onColorChange('red')}
-        onGreenChange={props.onColorChange('green')}
-        onBlueChange={props.onColorChange('blue')}
-      />
-    </DialogContent>
-
-    <DialogActions>
-      <Button onClick={props.onDialogClose(false)} color="primary">
-        Cancel
-      </Button>
-      <Button onClick={props.onDialogClose(true)} color="primary">
-        Save
-      </Button>
-    </DialogActions>
-  </Dialog>
-);

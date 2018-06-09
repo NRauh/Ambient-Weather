@@ -2,15 +2,12 @@ import * as React from 'react';
 import { Navbar } from './Navbar';
 import { WeatherPage, WeatherProps } from './WeatherPage';
 import SettingsPage from './SettingsPage';
-import { ColorsPage, ConditionColorListState } from './ColorsPage';
-import { SetColorDialogState, ColorPickerState } from './ColorDialog';
+import ColorsPage  from './ColorsPage';
 import { DashboardState } from './store/store';
 import { connect } from 'react-redux';
 
 interface AppState {
   weather: WeatherProps;
-  conditionColors: ConditionColorListState,
-  colorDialog: SetColorDialogState,
 }
 
 interface AppProps {
@@ -51,60 +48,10 @@ class App extends React.Component<any, any> {
         },
       ],
     },
-    conditionColors: {
-      clear: '#ddd',
-      windy: '#ccc',
-      partlyCloudy: '#bbb',
-      cloudy: '#aaa',
-      rain: '#999',
-      snow: '#888',
-      fog: '#777',
-    },
-    colorDialog: {
-      dialogOpen: false,
-      red: 7,
-      green: 7,
-      blue: 7,
-    },
   };
 
   constructor(props: AppProps) {
     super(props);
-  }
-
-  changeColor = (color: keyof ColorPickerState) => {
-    return (event: any) => {
-      const newColor: SetColorDialogState = { ...this.state.colorDialog };
-      newColor[color] = event.target.value;
-      this.setState({ colorDialog: newColor });
-    };
-  }
-
-  openColorDialog = (condition: keyof ConditionColorListState) => {
-    return (event: any) => {
-      const openDialog: SetColorDialogState = {
-        ...this.state.colorDialog,
-        dialogOpen: true,
-        forCondition: condition,
-      };
-
-      this.setState({ colorDialog: openDialog });
-    };
-  }
-
-  closeColorDialog = (save: boolean) => {
-    return (event: any) => {
-      if (save) {
-        console.log('i will save');
-      }
-
-      const closeDialog: SetColorDialogState = {
-        ...this.state.colorDialog,
-        dialogOpen: false,
-        forCondition: undefined,
-      };
-      this.setState({ colorDialog: closeDialog });
-    };
   }
 
   currentPage = () => {
@@ -119,23 +66,7 @@ class App extends React.Component<any, any> {
       );
     } else if (this.props.page === 1) {
       return (
-        <ColorsPage
-          clear={this.state.conditionColors.clear}
-          windy={this.state.conditionColors.windy}
-          partlyCloudy={this.state.conditionColors.partlyCloudy}
-          cloudy={this.state.conditionColors.cloudy}
-          rain={this.state.conditionColors.rain}
-          snow={this.state.conditionColors.snow}
-          fog={this.state.conditionColors.fog}
-          dialogOpen={this.state.colorDialog.dialogOpen}
-          forCondition={this.state.colorDialog.forCondition}
-          red={this.state.colorDialog.red}
-          green={this.state.colorDialog.green}
-          blue={this.state.colorDialog.blue}
-          onColorChange={this.changeColor}
-          onColorClick={this.openColorDialog}
-          onDialogClose={this.closeColorDialog}
-        />
+        <ColorsPage />
       );
     } else if (this.props.page === 2) {
       return (

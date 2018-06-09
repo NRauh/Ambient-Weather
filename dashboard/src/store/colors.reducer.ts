@@ -2,13 +2,13 @@ import { ConditionColorListState } from '../ColorsPage';
 import { AnyAction } from 'redux';
 
 const initialColorList: ConditionColorListState = {
-  clear: '#ddd',
-  windy: '#ccc',
-  partlyCloudy: '#bbb',
-  cloudy: '#aaa',
-  rain: '#999',
-  snow: '#888',
-  fog: '#777',
+  clear: { red: 220, green: 220, blue: 220 },
+  windy: { red: 210, green: 210, blue: 210 },
+  partlyCloudy: { red: 200, green: 200, blue: 200 },
+  cloudy: { red: 190, green: 190, blue: 190 },
+  rain: { red: 180, green: 180, blue: 180 },
+  snow: { red: 170, green: 170, blue: 170 },
+  fog: { red: 160, green: 160, blue: 160 },
 };
 
 export const CONDITION_COLOR_ACTIONS = {
