@@ -1,7 +1,6 @@
 import { BottomNavigation, BottomNavigationAction, withStyles } from '@material-ui/core';
 import * as React from 'react';
-import { DashboardState } from './store/store';
-import { APP_ACTIONS } from './store/app.reducer';
+import { DashboardState, ACTIONS } from './store/store';
 import { connect } from 'react-redux';
 
 const styles = {
@@ -38,7 +37,7 @@ const mapStateToProps = (state: DashboardState) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onChange: (event, value) => {
-    dispatch({ value, type: APP_ACTIONS.SET_PAGE });
+    dispatch({ value, type: ACTIONS.SET_PAGE });
   },
 });
 

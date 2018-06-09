@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SettingsState, DashboardState, SETTINGS_ACTIONS } from '../store';
+import { SettingsState, DashboardState, ACTIONS } from '../store';
 import { SettingsControls } from './SettingsControls';
 import { LocationInput } from './LocationInput';
 import { UnitSelection } from './UnitSelection';
@@ -97,7 +97,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onSave: (event: SettingsPageState) => {
       const action = {
-        type: SETTINGS_ACTIONS.SET_ALL_SETTINGS,
+        type: ACTIONS.SET_ALL_SETTINGS,
         value: event,
       };
 

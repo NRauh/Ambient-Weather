@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Color, ConditionList } from '@light/types';
 import { ConditionColorList } from './ConditionColorList';
 import { ColorDialog } from '../color-dialog/ColorDialog';
-import { DashboardState, CONDITION_COLOR_ACTIONS } from '../store';
+import { DashboardState, ACTIONS } from '../store';
 import { connect } from 'react-redux';
 
 export interface ColorsPageProps {
@@ -89,7 +89,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onSave: (color: Color, condition: keyof ConditionList) => {
       const action = {
-        type: CONDITION_COLOR_ACTIONS.SET_CONDITION,
+        type: ACTIONS.SET_CONDITION,
         value: color,
         color: condition,
       };
