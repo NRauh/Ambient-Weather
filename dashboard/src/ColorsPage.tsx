@@ -5,7 +5,7 @@ import {
   ListItemText,
   Avatar,
 } from '@material-ui/core';
-import { ColorDialog } from './ColorDialog';
+import { ColorDialog } from './color-dialog/ColorDialog';
 import { DashboardState } from './store/store';
 import { connect } from 'react-redux';
 import { Color } from './types';

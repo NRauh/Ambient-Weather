@@ -16,7 +16,10 @@
     "noImplicitAny": false,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "paths": {
+      "@light/types": ["./src/types/index"]
+    }
   },
   "exclude": [
     "node_modules",
