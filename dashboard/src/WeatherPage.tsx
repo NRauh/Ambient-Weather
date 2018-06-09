@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import './Weather.css';
+import { connect } from 'react-redux';
+import { DashboardState } from './store/store';
 
 export interface InfoProps {
   condition: string;
@@ -38,7 +40,7 @@ export const WeatherForecast = (props: ForecastProps) => (
   </List>
 );
 
-export const WeatherPage = (props: WeatherProps) => (
+const WeatherPage = (props: WeatherProps) => (
   <div className="weather">
     <WeatherIcon />
     <WeatherInfo
@@ -49,3 +51,14 @@ export const WeatherPage = (props: WeatherProps) => (
     <WeatherForecast forecast={props.forecast} />
   </div>
 );
+
+const mapStateToProps = (state: DashboardState) => {
+  return {
+    temperature: state.weather.temperature,
+    condition: state.weather.condition,
+    time: state.weather.time,
+    forecast: state.weather.forecast,
+  };
+};
+
+export default connect(mapStateToProps)(WeatherPage);
