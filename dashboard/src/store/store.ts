@@ -1,6 +1,6 @@
 import { WeatherProps } from '../WeatherPage';
 import { SettingsPageState } from '../SettingsPage';
-import { ConditionColorListState } from '../ColorsPage';
+import { ConditionList } from '@light/types';
 import { combineReducers, createStore } from 'redux';
 import { colorsReducer } from './colors.reducer';
 import { previousSettingsReducer, settingsReducer } from './settings.reducer';
@@ -17,7 +17,7 @@ export interface DashboardState {
   weather: WeatherProps;
   settings: SettingsPageState;
   previousSettings?: SettingsPageState;
-  conditionColors: ConditionColorListState,
+  conditionColors: ConditionList,
 }
 
 const rootReducer = combineReducers<DashboardState>({

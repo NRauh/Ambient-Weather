@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Navbar } from './Navbar';
 import WeatherPage from './WeatherPage';
 import SettingsPage from './SettingsPage';
-import ColorsPage  from './ColorsPage';
+import ColorsPage  from './colors-page/ColorsPage';
 import { DashboardState } from './store/store';
 import { connect } from 'react-redux';
 

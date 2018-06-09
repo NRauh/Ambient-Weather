@@ -6,19 +6,18 @@ import {
   DialogActions,
   Button,
 } from '@material-ui/core';
-import { ConditionColorListState } from '../ColorsPage';
-import { Color } from '@light/types';
+import { Color, ConditionList } from '@light/types';
 import { ColorPicker } from './ColorPicker';
 
 export interface SetColorDialogProps {
   dialogOpen: boolean;
-  forCondition: keyof ConditionColorListState;
+  forCondition: keyof ConditionList;
   color: Color;
   onDialogClose: (save: boolean) => void;
   onColorChange: (value: Color) => void;
 }
 
-export class ColorDialog extends React.Component<SetColorDialogProps> {
+export class ColorDialog extends React.Component<SetColorDialogProps, any> {
   constructor(props: SetColorDialogProps) {
     super(props);
   }
@@ -42,10 +41,10 @@ export class ColorDialog extends React.Component<SetColorDialogProps> {
   render() {
     return (
       <Dialog
-        open={(this.props as SetColorDialogProps).dialogOpen}
+        open={this.props.dialogOpen}
         onClose={this.dialogClose(false)}
       >
-        <DialogTitle>Set {(this.props as SetColorDialogProps).forCondition}</DialogTitle>
+        <DialogTitle>Set {this.props.forCondition}</DialogTitle>
         <DialogContent>
           <ColorPicker
             color={this.props.color}
