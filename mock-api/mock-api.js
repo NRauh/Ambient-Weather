@@ -61,16 +61,16 @@ router.get('/api/weather', async (ctx) => {
 
 
 let colors = {
-  clear: '#81dc68',
-  rain: '#af7289',
-  snow: '#936130',
-  wind: '#77ffaa',
-  fog: '#336699',
-  cloudy: '#f77f91',
-  partlyCloudy: '#140305',
+  clear: { red: 242, green: 142, blue: 42 },
+  windy: { red: 37, green: 101, blue: 200 },
+  partlyCloudy: { red: 178, green: 200, blue: 133 },
+  cloudy: { red: 84, green: 192, blue: 95 },
+  rain: { red: 0, green: 72, blue: 181 },
+  snow: { red: 43, green: 36, blue: 245 },
+  fog: { red: 90, green: 100, blue: 80 },
 };
 
-router.get('/colors', async (ctx) => {
+router.get('/api/conditions', async (ctx) => {
   ctx.body = colors;
 });
 
