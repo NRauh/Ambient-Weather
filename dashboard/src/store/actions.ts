@@ -1,7 +1,7 @@
 import { takeLatest, takeEvery, call, put } from 'redux-saga/effects';
-import axios, { AxiosResponse } from 'axios';
 import { WeatherState, SettingsState } from './store';
-import { ConditionList, Color } from '@light/types';
+import { ConditionList } from '@light/types';
+import * as api from '../api';
 import { AnyAction } from 'redux';
 
 export const ACTIONS = {
@@ -18,36 +18,9 @@ export const ACTIONS = {
   GET_ALL_SETTINGS: 'GET_ALL_SETTINGS',
 };
 
-async function getWeather(): Promise<WeatherState> {
-  const res: AxiosResponse<WeatherState> = await axios.get('http://localhost:3001/api/weather');
-  return res.data;
-}
-
-async function getConditions(): Promise<ConditionList> {
-  const res: AxiosResponse<ConditionList> = await axios.get('http://localhost:3001/api/conditions');
-  return res.data;
-}
-
-async function getSettings(): Promise<SettingsState> {
-  const res: AxiosResponse<SettingsState> = await axios.get('http://localhost:3001/api/settings');
-  return res.data;
-}
-
-async function updateCondition(condition: keyof ConditionList, value: Color): Promise<ConditionList> {
-  const res: AxiosResponse<ConditionList> = await axios.patch('http://localhost:3001/api/conditions', {
-    [condition]: value,
-  });
-  return res.data;
-}
-
-async function updateSettings(settings: SettingsState): Promise<SettingsState> {
-  const res: AxiosResponse<SettingsState> = await axios.patch('http://localhost:3001/api/settings', settings);
-  return res.data;
-}
-
 function* fetchWeather() {
   try {
-    const weather: WeatherState = yield call(getWeather);
+    const weather: WeatherState = yield call(api.getWeather);
     yield put({ type: ACTIONS.SET_WEATHER, value: weather });
   } catch (e) {
     console.error(e);
@@ -56,7 +29,7 @@ function* fetchWeather() {
 
 function* fetchConditions() {
   try {
-    const conditions: ConditionList = yield call(getConditions);
+    const conditions: ConditionList = yield call(api.getConditions);
     yield put({ type: ACTIONS.SET_ALL_CONDITIONS, value: conditions });
   } catch (e) {
     console.error(e);
@@ -65,7 +38,7 @@ function* fetchConditions() {
 
 function* fetchSettings() {
   try {
-    const settings: SettingsState = yield call(getSettings);
+    const settings: SettingsState = yield call(api.getSettings);
     yield put({ type: ACTIONS.SET_ALL_SETTINGS, value: settings });
   } catch (e) {
     console.error(e);
@@ -80,7 +53,7 @@ function* saveConditions(action: AnyAction) {
       value: action.value,
     };
     yield put(syncAction);
-    yield call(updateCondition, action.color, action.value);
+    yield call(api.updateCondition, action.color, action.value);
   } catch (e) {
     console.error(e);
   }
@@ -93,7 +66,7 @@ function* saveSettings(action: AnyAction) {
       value: action.value,
     };
     yield put(syncAction);
-    yield call(updateSettings, action.value);
+    yield call(api.updateSettings, action.value);
   } catch (e) {
     console.error(e);
   }
