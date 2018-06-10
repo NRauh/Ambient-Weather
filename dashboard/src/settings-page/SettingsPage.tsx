@@ -4,6 +4,7 @@ import { SettingsControls } from './SettingsControls';
 import { LocationInput } from './LocationInput';
 import { HostnameInput } from './HostnameInput';
 import { connect } from 'react-redux';
+import { Typography } from '@material-ui/core';
 
 export interface SettingsPageProps {
   settings: SettingsState;
@@ -56,7 +57,8 @@ class SettingsPage extends React.Component<SettingsPageProps, any> {
   render() {
     return (
       <div className="settings">
-        <h1>Settings</h1>
+        <Typography variant="display2">Settings</Typography>
+
         <SettingsControls
           onResetClick={this.resetChanges}
           onSaveClick={this.saveSettings}

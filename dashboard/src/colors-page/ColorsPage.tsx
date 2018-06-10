@@ -4,6 +4,7 @@ import { ConditionColorList } from './ConditionColorList';
 import { ColorDialog } from '../color-dialog/ColorDialog';
 import { DashboardState, ACTIONS } from '../store';
 import { connect } from 'react-redux';
+import { Typography } from '@material-ui/core';
 
 export interface ColorsPageProps {
   colors: ConditionList;
@@ -61,7 +62,7 @@ class ColorsPage extends React.Component<ColorsPageProps, any> {
   render() {
     return (
       <div>
-        <h1>Colors</h1>
+        <Typography variant="display2">Colors</Typography>
 
         <ConditionColorList
           conditions={this.props.colors}
