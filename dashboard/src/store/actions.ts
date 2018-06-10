@@ -6,6 +6,7 @@ import { AnyAction } from 'redux';
 
 export const ACTIONS = {
   SET_ALL_SETTINGS: 'SET_ALL_SETTINGS',
+  SET_ALL_SETTINGS_ASYNC: 'SET_ALL_SETTINGS_ASYNC',
   SET_ALL_CONDITIONS: 'SET_ALL_CONDITIONS',
   SET_CONDITION: 'SET_CONDITION',
   SET_CONDITION_ASYNC: 'SET_CONDITION_ASYNC',
@@ -36,6 +37,11 @@ async function updateCondition(condition: keyof ConditionList, value: Color): Pr
   const res: AxiosResponse<ConditionList> = await axios.patch('http://localhost:3001/api/conditions', {
     [condition]: value,
   });
+  return res.data;
+}
+
+async function updateSettings(settings: SettingsState): Promise<SettingsState> {
+  const res: AxiosResponse<SettingsState> = await axios.patch('http://localhost:3001/api/settings', settings);
   return res.data;
 }
 
@@ -80,9 +86,23 @@ function* saveConditions(action: AnyAction) {
   }
 }
 
+function* saveSettings(action: AnyAction) {
+  try {
+    const syncAction: AnyAction = {
+      type: ACTIONS.SET_ALL_SETTINGS,
+      value: action.value,
+    };
+    yield put(syncAction);
+    yield call(updateSettings, action.value);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function* lightSaga() {
   yield takeLatest(ACTIONS.GET_WEATHER, fetchWeather);
   yield takeLatest(ACTIONS.GET_ALL_CONDITIONS, fetchConditions);
   yield takeLatest(ACTIONS.GET_ALL_SETTINGS, fetchSettings);
   yield takeEvery(ACTIONS.SET_CONDITION_ASYNC, saveConditions);
+  yield takeEvery(ACTIONS.SET_ALL_SETTINGS_ASYNC, saveSettings);
 }

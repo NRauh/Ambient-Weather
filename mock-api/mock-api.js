@@ -91,7 +91,7 @@ router.get('/api/settings', async (ctx) => {
   ctx.body = settings;
 });
 
-router.patch('/settings', async (ctx) => {
+router.patch('/api/settings', async (ctx) => {
   const newSettings = { ...settings, ...ctx.request.body };
   settings = newSettings;
   ctx.body = settings;

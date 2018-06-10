@@ -91,7 +91,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onSave: (event: SettingsPageState) => {
       const action = {
-        type: ACTIONS.SET_ALL_SETTINGS,
+        type: ACTIONS.SET_ALL_SETTINGS_ASYNC,
         value: event,
       };
 
