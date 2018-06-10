@@ -2,7 +2,7 @@ import { ConditionList } from '@light/types';
 import { createStore, applyMiddleware } from 'redux';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 import { AnyAction } from 'redux';
-import { UnitOptions, WeatherStatus, Location } from '@light/types';
+import { WeatherStatus, Location } from '@light/types';
 import { ACTIONS } from './actions';
 import createSagaMiddleware from 'redux-saga';
 import { lightSaga } from './actions';
@@ -12,7 +12,6 @@ export interface AppState {
 }
 
 export interface SettingsState extends Location {
-  unit: UnitOptions;
   hostname: string;
 }
 
@@ -44,7 +43,6 @@ const defaultState: DashboardState = {
   settings: {
     lat: '0.0',
     long: '0.0',
-    unit: UnitOptions.SI,
     hostname: 'hello-led',
   },
   weather: {

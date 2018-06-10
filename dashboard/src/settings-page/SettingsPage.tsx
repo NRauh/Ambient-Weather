@@ -2,7 +2,6 @@ import * as React from 'react';
 import { SettingsState, DashboardState, ACTIONS } from '../store';
 import { SettingsControls } from './SettingsControls';
 import { LocationInput } from './LocationInput';
-import { UnitSelection } from './UnitSelection';
 import { HostnameInput } from './HostnameInput';
 import { connect } from 'react-redux';
 
@@ -69,10 +68,6 @@ class SettingsPage extends React.Component<SettingsPageProps, any> {
           lat={this.state.settings.lat}
           long={this.state.settings.long}
         />
-        <UnitSelection
-          unit={this.state.settings.unit}
-          onUnitChange={this.updateSettings('unit')}
-        />
         <HostnameInput
           hostname={this.state.settings.hostname}
           onHostnameChange={this.updateSettings('hostname')}
@@ -87,7 +82,6 @@ const mapStateToProps = (state: DashboardState) => {
     settings: {
       lat: state.settings.lat,
       long: state.settings.long,
-      unit: state.settings.unit,
       hostname: state.settings.hostname,
     },
   };
