@@ -89,7 +89,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onSave: (color: Color, condition: keyof ConditionList) => {
       const action = {
-        type: ACTIONS.SET_CONDITION,
+        type: ACTIONS.SET_CONDITION_ASYNC,
         value: color,
         color: condition,
       };

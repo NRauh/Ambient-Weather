@@ -74,7 +74,7 @@ router.get('/api/conditions', async (ctx) => {
   ctx.body = colors;
 });
 
-router.patch('/colors', async (ctx) => {
+router.patch('/api/conditions', async (ctx) => {
   const newColors = { ...colors, ...ctx.request.body };
   colors = newColors;
   ctx.body = colors;
