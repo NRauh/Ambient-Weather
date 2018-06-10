@@ -43,7 +43,7 @@ const defaultState: DashboardState = {
   settings: {
     lat: '0.0',
     long: '0.0',
-    hostname: 'hello-led',
+    hostname: '',
   },
   weather: {
     current: {

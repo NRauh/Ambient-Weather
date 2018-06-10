@@ -15,3 +15,4 @@ ReactDOM.render(
 
 store.dispatch({ type: ACTIONS.GET_WEATHER });
 store.dispatch({ type: ACTIONS.GET_ALL_CONDITIONS });
+store.dispatch({ type: ACTIONS.GET_ALL_SETTINGS });

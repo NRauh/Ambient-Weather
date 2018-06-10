@@ -82,12 +82,12 @@ router.patch('/colors', async (ctx) => {
 
 
 let settings = {
-  unit: 'us',
-  location: '42.3601,-71.0589',
-  hostname: 'lighty',
+  lat: '42.3601',
+  long: '-71.0589',
+  hostname: 'weather-light'
 };
 
-router.get('/settings', async (ctx) => {
+router.get('/api/settings', async (ctx) => {
   ctx.body = settings;
 });
 
