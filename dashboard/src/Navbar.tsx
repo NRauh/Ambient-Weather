@@ -1,6 +1,6 @@
 import { BottomNavigation, BottomNavigationAction, withStyles } from '@material-ui/core';
 import * as React from 'react';
-import { DashboardState, ACTIONS } from './store/store';
+import { DashboardState, ACTIONS } from './store';
 import { connect } from 'react-redux';
 
 const styles = {

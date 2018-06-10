@@ -12,29 +12,50 @@ app.use(bodyParser({
   enableTypes: ['json'],
 }));
 
-router.get('/weather', async (ctx) => {
+router.get('/api/weather', async (ctx) => {
   ctx.body = {
-    color: 'clear',
-    temperature: 68.2,
-    time: 1526698800,
-    hourly: [
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-      { time: 1526698800, color: 'clear' },
-    ],
+    current: {
+      condition: 'Clear',
+      temperature: 68.2,
+      time: 1526698800,
+    },
+    forecast: [
+      {
+        temperature: 58,
+        condition: 'Rainy',
+        time: 1000000,
+      },
+      {
+        temperature: 58,
+        condition: 'Foggy',
+        time: 1000000,
+      },
+      {
+        temperature: 58,
+        condition: 'Snowy',
+        time: 1000000,
+      },
+      {
+        temperature: 58,
+        condition: 'Partly Cloudy',
+        time: 1000000,
+      },
+      {
+        temperature: 58,
+        condition: 'Cloudy',
+        time: 1000000,
+      },
+      {
+        temperature: 58,
+        condition: 'Cloudy',
+        time: 1000000,
+      },
+      {
+        temperature: 58,
+        condition: 'Cloudy',
+        time: 1000000,
+      },
+    ]
   };
 });
 
@@ -78,4 +99,4 @@ router.patch('/settings', async (ctx) => {
 
 app.use(router.routes());
 
-app.listen(3000);
+app.listen(3001);

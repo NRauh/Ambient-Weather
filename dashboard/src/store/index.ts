@@ -2,5 +2,5 @@ export {
   DashboardState,
   WeatherState,
   SettingsState,
-  ACTIONS,
 } from './store';
+export { ACTIONS } from './actions';

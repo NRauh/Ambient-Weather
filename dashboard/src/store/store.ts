@@ -1,8 +1,11 @@
 import { ConditionList } from '@light/types';
-import { createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, applyMiddleware } from 'redux';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 import { AnyAction } from 'redux';
 import { UnitOptions, WeatherStatus, Location } from '@light/types';
+import { ACTIONS } from './actions';
+import createSagaMiddleware from 'redux-saga';
+import { lightSaga } from './actions';
 
 export interface AppState {
   page: number;
@@ -46,47 +49,13 @@ const defaultState: DashboardState = {
   },
   weather: {
     current: {
-      temperature: 68,
-      condition: 'Clear',
-      time: 1000000,
+      temperature: 0,
+      condition: '',
+      time: 0,
     },
-    forecast: [
-      {
-        temperature: 58,
-        condition: 'Rainy',
-        time: 1000000,
-      },
-      {
-        temperature: 58,
-        condition: 'Foggy',
-        time: 1000000,
-      },
-      {
-        temperature: 58,
-        condition: 'Snowy',
-        time: 1000000,
-      },
-      {
-        temperature: 58,
-        condition: 'Partly Cloudy',
-        time: 1000000,
-      },
-      {
-        temperature: 58,
-        condition: 'Cloudy',
-        time: 1000000,
-      },
-    ],
+    forecast: [],
   }
 }
-
-export const ACTIONS = {
-  SET_ALL_SETTINGS: 'SET_ALL_SETTINGS',
-  SET_ALL_CONDITIONS: 'SET_ALL_CONDITIONS',
-  SET_CONDITION: 'SET_CONDITION',
-  SET_WEATHER: 'SET_WEATHER',
-  SET_PAGE: 'SET_PAGE',
-};
 
 export function rootReducer(initialState: DashboardState = defaultState, action: AnyAction): DashboardState {
   switch (action.type) {
@@ -123,4 +92,12 @@ export function rootReducer(initialState: DashboardState = defaultState, action:
   }
 }
 
-export const store = createStore(rootReducer, composeWithDevTools());
+const sagaMiddlware = createSagaMiddleware();
+
+export const store = createStore(
+  rootReducer,
+  // applyMiddleware(composeWithDevTools(), sagaMiddlware)
+  applyMiddleware(sagaMiddlware)
+);
+
+sagaMiddlware.run(lightSaga);

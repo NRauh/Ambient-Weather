@@ -4,6 +4,7 @@ import App from './App';
 import './index.css';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
+import { ACTIONS } from './store';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -11,3 +12,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch({ type: ACTIONS.GET_WEATHER });
