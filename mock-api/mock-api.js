@@ -15,44 +15,52 @@ app.use(bodyParser({
 router.get('/api/weather', async (ctx) => {
   ctx.body = {
     current: {
-      condition: 'Clear',
+      condition: 'clear',
+      human: 'Clear',
       temperature: 68.2,
       time: 1526698800,
     },
     forecast: [
       {
         temperature: 58,
-        condition: 'Rainy',
+        condition: 'windy',
+        human: 'Windy',
         time: 1000000,
       },
       {
         temperature: 58,
-        condition: 'Foggy',
+        condition: 'partlyCloudy',
+        human: 'Partly Cloudy',
         time: 1000000,
       },
       {
         temperature: 58,
-        condition: 'Snowy',
+        condition: 'cloudy',
+        human: 'Cloudy',
         time: 1000000,
       },
       {
         temperature: 58,
-        condition: 'Partly Cloudy',
+        condition: 'rain',
+        human: 'Rain',
         time: 1000000,
       },
       {
         temperature: 58,
-        condition: 'Cloudy',
+        condition: 'snow',
+        human: 'Snow',
         time: 1000000,
       },
       {
         temperature: 58,
-        condition: 'Cloudy',
+        condition: 'fog',
+        human: 'Fog',
         time: 1000000,
       },
       {
         temperature: 58,
-        condition: 'Cloudy',
+        condition: 'clear',
+        human: 'Clear',
         time: 1000000,
       },
     ]

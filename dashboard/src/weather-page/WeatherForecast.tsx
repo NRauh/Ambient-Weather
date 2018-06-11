@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { List, ListItem, ListItemText } from '@material-ui/core';
-import { WeatherStatus } from '@light/types';
+import { List, ListItem, ListItemText, Avatar } from '@material-ui/core';
+import { WeatherStatus, ConditionList } from '@light/types';
+import { colorStyles } from '../colors-page/ConditionColorList';
 
 export interface WeatherForecastProps {
   forecast: WeatherStatus[],
+  colors: ConditionList,
 }
 
 export const WeatherForecast = (props: WeatherForecastProps) => ( 
   <List className="weather__forecast">
     {props.forecast.map((weather: any, index: number) => (
       <ListItem button={true} key={index}>
-        <ListItemText primary={weather.condition} />
+        <Avatar style={colorStyles(props.colors[weather.condition])} />
+        <ListItemText primary={weather.human} />
       </ListItem>
     ))}
   </List>
