@@ -15,7 +15,6 @@ const WeatherPage = (props: WeatherPageProps) => (
   <div className="weather">
     <WeatherIcon />
     <WeatherInfo
-      human={props.current.human}
       temperature={props.current.temperature}
       condition={props.current.condition}
       time={props.current.time}

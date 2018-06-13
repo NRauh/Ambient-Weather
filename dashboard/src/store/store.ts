@@ -49,7 +49,6 @@ const defaultState: DashboardState = {
     current: {
       temperature: 0,
       condition: ('' as keyof ConditionList),
-      human: '',
       time: 0,
     },
     forecast: [],

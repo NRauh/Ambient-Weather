@@ -41,6 +41,9 @@ void getWeather()
 
   String response;
   root.printTo(response);
+
+  server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/json", response);
 }
 
@@ -115,6 +118,9 @@ void getConditions()
 
   String response;
   root.printTo(response);
+
+  server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/json", response);
 }
 
@@ -181,6 +187,9 @@ void getSettings()
 
   String response;
   root.printTo(response);
+
+  server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/json", response);
 }
 
@@ -196,13 +205,24 @@ void setSettings()
   getSettings();
 }
 
+void corsDisable()
+{
+  server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  server.sendHeader("Access-Control-Allow-Methods", "PATCH,GET,OPTIONS");
+  server.sendHeader("Access-Control-Allow-Origin", "*");
+  server.send(200, "text/plain", "" );
+}
+
 void setupServer()
 {
+  server.on("/api/weather", HTTP_OPTIONS, corsDisable);
   server.on("/api/weather", HTTP_GET, getWeather);
 
+  server.on("/api/conditions", HTTP_OPTIONS, corsDisable);
   server.on("/api/conditions", HTTP_GET, getConditions);
   server.on("/api/conditions", HTTP_PATCH, setConditions);
 
+  server.on("/api/conditions", HTTP_OPTIONS, corsDisable);
   server.on("/api/settings", HTTP_GET, getSettings);
   server.on("/api/settings", HTTP_PATCH, setSettings);
 

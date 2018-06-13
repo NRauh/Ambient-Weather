@@ -10,10 +10,10 @@ export interface WeatherForecastProps {
 
 export const WeatherForecast = (props: WeatherForecastProps) => ( 
   <List className="weather__forecast">
-    {props.forecast.map((weather: any, index: number) => (
+    {props.forecast.map((weather: WeatherStatus, index: number) => (
       <ListItem button={true} key={index}>
         <Avatar style={colorStyles(props.colors[weather.condition])} />
-        <ListItemText primary={weather.human} />
+        <ListItemText primary={weather.condition} />
       </ListItem>
     ))}
   </List>
