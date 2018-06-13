@@ -1,6 +1,7 @@
 #include <WiFiManager.h>
 #include <ESP8266WebServer.h>
 #include <ArduinoJson.h>
+#include <FS.h>
 
 ESP8266WebServer server(80);
 
@@ -205,6 +206,17 @@ void setSettings()
   getSettings();
 }
 
+void handleIndex() {
+  File index = SPIFFS.open("/index.html", "r");
+  if (!index) {
+    server.send(500, "text/html", "Unable to serve page\n");
+    return;
+  }
+
+  server.streamFile(index, "text/html");
+  index.close();
+}
+
 void corsDisable()
 {
   server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -213,8 +225,52 @@ void corsDisable()
   server.send(200, "text/plain", "" );
 }
 
+String getContentType(String filename)
+{
+  if (filename.endsWith(".html"))
+  {
+    return "text/html";
+  }
+  else if (filename.endsWith(".css"))
+  {
+    return "text/css";
+  }
+  else if (filename.endsWith(".js"))
+  {
+    return "application/javascript";
+  }
+  else if (filename.endsWith(".json"))
+  {
+    return "application/json";
+  }
+  else if (filename.endsWith(".ico"))
+  {
+    return "image/x-icon";
+  }
+  else
+  {
+    return "text/plain";
+  }
+}
+
+bool handleAssets(String path)
+{
+  if (!SPIFFS.exists(path))
+  {
+    return false;
+  }
+
+  String contentType = getContentType(path);
+  File file = SPIFFS.open(path, "r");
+  server.streamFile(file, contentType);
+  file.close();
+  return true;
+}
+
 void setupServer()
 {
+  server.on("/", HTTP_GET, handleIndex);
+
   server.on("/api/weather", HTTP_OPTIONS, corsDisable);
   server.on("/api/weather", HTTP_GET, getWeather);
 
@@ -226,11 +282,20 @@ void setupServer()
   server.on("/api/settings", HTTP_GET, getSettings);
   server.on("/api/settings", HTTP_PATCH, setSettings);
 
+  server.onNotFound([]()
+  {
+    if (!handleAssets(server.uri()))
+    {
+      server.send(404, "text/plain", "404 Not Found");
+    }
+  });
+
   server.begin();
 }
 
 void setup()
 {
+  SPIFFS.begin();
   Serial.begin(115200);
 
   WiFiManager wifiManager;
