@@ -12,11 +12,77 @@ struct Condition
   int time;
 };
 
-Condition currentWeather = { "clear", 68.2, 150000 };
-Condition forecast[2] = {
-  { "rain", 68.2, 160000 },
-  { "cloudy", 45, 170000 }
+struct Color
+{
+  int red;
+  int green;
+  int blue;
 };
+
+struct Conditions
+{
+  Color clear;
+  Color windy;
+  Color partlyCloudy;
+  Color cloudy;
+  Color rain;
+  Color snow;
+  Color fog;
+};
+
+Conditions conditionList = {
+  {242, 142, 42},
+  {37, 101, 200},
+  {178, 200, 133},
+  {84, 192, 95},
+  {0, 72, 181},
+  {43, 36, 245},
+  {90, 100, 80},
+};
+
+Condition currentWeather;
+Condition forecast[2];
+
+Color getCurrentWeatherColor()
+{
+  if (currentWeather.condition == "clear") return conditionList.clear;
+  if (currentWeather.condition == "windy") return conditionList.windy;
+  if (currentWeather.condition == "partlyCloudy") return conditionList.partlyCloudy;
+  if (currentWeather.condition == "cloudy") return conditionList.cloudy;
+  if (currentWeather.condition == "rain") return conditionList.rain;
+  if (currentWeather.condition == "snow") return conditionList.snow;
+  if (currentWeather.condition == "fog") return conditionList.fog;
+}
+
+void sendColor()
+{
+  Serial.println("Sending color");
+
+  DynamicJsonBuffer jsonBuffer;
+  JsonObject& root = jsonBuffer.createObject();
+  
+  root["type"] = "set";
+  JsonArray& color = root.createNestedArray("color");
+  
+  Color colorToSend = getCurrentWeatherColor();
+  
+  color.add(colorToSend.red);
+  color.add(colorToSend.green);
+  color.add(colorToSend.blue);
+  color.add(123);
+
+  root.printTo(Serial);
+}
+
+void setWeather()
+{
+  currentWeather = { "clear", 68.2, 150000 };
+
+  forecast[0] = { "rain", 68.2, 160000 };
+  forecast[1] = { "cloudy", 45, 170000 };
+
+  sendColor();
+}
 
 void getWeather()
 {
@@ -47,34 +113,6 @@ void getWeather()
   server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/json", response);
 }
-
-struct Color
-{
-  int red;
-  int green;
-  int blue;
-};
-
-struct Conditions
-{
-  Color clear;
-  Color windy;
-  Color partlyCloudy;
-  Color cloudy;
-  Color rain;
-  Color snow;
-  Color fog;
-};
-
-Conditions conditionList = {
-  {242, 142, 42},
-  {37, 101, 200},
-  {178, 200, 133},
-  {84, 192, 95},
-  {0, 72, 181},
-  {43, 36, 245},
-  {90, 100, 80},
-};
 
 void getConditions()
 {
@@ -164,6 +202,8 @@ void setConditions()
   if (fog.containsKey("red")) { conditionList.fog.red = fog["red"]; }
   if (fog.containsKey("green")) { conditionList.fog.green = fog["green"]; }
   if (fog.containsKey("blue")) { conditionList.fog.blue = fog["blue"]; }
+
+  sendColor();
 
   getConditions();
 }
@@ -302,6 +342,7 @@ void setup()
   wifiManager.autoConnect("ESPConnect", "ESPConnectPassword");
 
   setupServer();
+  setWeather();
 }
 
 void loop()
