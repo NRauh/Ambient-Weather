@@ -30,3 +30,9 @@ reliably determin it in production).
 
 Without it being defaulted (via the build script), it would end up being
 `undefined/api/...` and not work.
+
+## Credits
+
+The Arduino projects uses the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library, and the standard Arduino and ESP8266 libraries.
+
+The libraries used for the dashboard are listed in the package.json
