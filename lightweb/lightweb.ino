@@ -2,6 +2,7 @@
 #include <ESP8266WebServer.h>
 #include <ArduinoJson.h>
 #include <FS.h>
+#include <ESP8266mDNS.h>
 
 ESP8266WebServer server(80);
 
@@ -340,6 +341,8 @@ void setup()
 
   WiFiManager wifiManager;
   wifiManager.autoConnect("ESPConnect", "ESPConnectPassword");
+
+  MDNS.begin("weatherlight");
 
   setupServer();
   setWeather();
