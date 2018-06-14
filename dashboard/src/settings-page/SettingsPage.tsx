@@ -51,7 +51,16 @@ class SettingsPage extends React.Component<SettingsPageProps, any> {
   }
 
   getCurrentLocation = () => {
-    console.log('will get current location');
+    navigator.geolocation.getCurrentPosition((position: any) => {
+
+      this.setState({
+        settings: {
+          ...this.state.settings,
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        },
+      });
+    }, (err) => console.error('Failed to get location', err));
   };
 
   render() {
